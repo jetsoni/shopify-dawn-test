@@ -1,15 +1,19 @@
 <section class="container py-5">
   <!-- Desktop 2x2 grid -->
-  <div class="row g-3 d-none d-md-flex" style="height: 800px;"><!-- total height -->
+  <div class="row g-5 d-none d-md-flex" style="height: 800px;"><!-- total height -->
     <!-- Left column (Block 1 + Block 3) -->
     <div class="col-md-6 d-flex flex-column">
-      <div class="flex-grow-0" style="height: 40%;">
-        {% if section.settings.block_1 %}
-          <div class="text-center border rounded overflow-hidden h-100">
-            <img src="{{ section.settings.block_1 | image_url: width: 800 }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
-          </div>
-        {% else %}
-          <div class="bg-light text-center border rounded h-100">No image selected</div>
+      <div class="flex-grow-0 p-5" style="height: 40%;">
+        {% if section.settings.block_1_heading %}
+            <h3 style="font-size: x-large; font-weight:800;">{{ section.settings.block_1_heading }}</h3>
+        {% endif %}
+        {% if section.settings.block_1_button_text and section.settings.block_1_button_url %}
+            <a href="{{ section.settings.block_1_button_url }}" class="btn btn-primary mt-2"
+            style="text-decoration: none; text-transform: uppercase; color: #fff; padding: 1rem; background-color:black;"
+            >
+            {{ section.settings.block_1_button_text }}
+            <span class="ms-2 fs-1">&#8250;</span> <!-- Right-facing chevron -->
+            </a>
         {% endif %}
       </div>
       <div class="flex-grow-0 mt-3" style="height: 60%;">
@@ -34,13 +38,16 @@
           <div class="bg-light text-center border rounded h-100">No image selected</div>
         {% endif %}
       </div>
-      <div class="flex-grow-0 mt-3" style="height: 40%;">
-        {% if section.settings.block_4 %}
-          <div class="text-center border rounded overflow-hidden h-100">
-            <img src="{{ section.settings.block_4 | image_url: width: 800 }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
-          </div>
-        {% else %}
-          <div class="bg-light text-center border rounded h-100">No image selected</div>
+      <div class="flex-grow-0" style="height: 40%; padding: 8rem;">
+        {% if section.settings.block_4_heading %}
+            <h5 style="font-size: large; color:grey; font-weight: 200;">{{ section.settings.block_4_heading }}</h5>
+        {% endif %}
+        {% if section.settings.block_4_button_text and section.settings.block_4_button_url %}
+            <a href="{{ section.settings.block_4_button_url }}" class="btn btn-primary mt-2"
+            style="color: black; text-underline-offset: 8px;"
+            >
+            {{ section.settings.block_4_button_text }}
+            </a>
         {% endif %}
       </div>
     </div>
@@ -49,21 +56,25 @@
   <!-- Mobile layout: Block 1 full width, 2 & 3 scrollable row, 4 full width -->
   <div class="d-md-none">
     <!-- Block 1 full width -->
-    <div class="mb-3">
-      {% if section.settings.block_1 %}
-        <div class="text-center border rounded overflow-hidden">
-          <img src="{{ section.settings.block_1 | image_url: width: 800 }}" class="img-fluid" style="object-fit: cover; width: 100%; height: 400px;">
-        </div>
-      {% else %}
-        <div class="bg-light text-center border rounded">No image selected</div>
-      {% endif %}
-    </div>
+      <div class="flex-grow-0 p-5" style="height: 40%;">
+        {% if section.settings.block_1_heading %}
+            <h3 style="font-size: x-large; font-weight:800;">{{ section.settings.block_1_heading }}</h3>
+        {% endif %}
+        {% if section.settings.block_1_button_text and section.settings.block_1_button_url %}
+            <a href="{{ section.settings.block_1_button_url }}" class="btn btn-primary mt-2"
+            style="text-decoration: none; text-transform: uppercase; color: #fff; padding: 1rem; background-color:black;"
+            >
+            {{ section.settings.block_1_button_text }}
+            <span class="ms-2 fs-1">&#8250;</span> <!-- Right-facing chevron -->
+            </a>
+        {% endif %}
+      </div>
 
     <!-- Horizontal scroll for blocks 2 & 3 -->
     <div class="d-flex overflow-auto flex-nowrap mb-3" style="gap: 1rem; scroll-snap-type: x mandatory;">
       <div class="flex-shrink-0" style="width: 90vw; scroll-snap-align: start;">
         {% if section.settings.block_2 %}
-          <div class="text-center border rounded overflow-hidden">
+          <div class="text-center overflow-hidden">
             <img src="{{ section.settings.block_2 | image_url: width: 800 }}" class="img-fluid" style="object-fit: cover; width: 100%; height: 400px;">
           </div>
         {% else %}
@@ -72,7 +83,7 @@
       </div>
       <div class="flex-shrink-0" style="width: 90vw; scroll-snap-align: start;">
         {% if section.settings.block_3 %}
-          <div class="text-center border rounded overflow-hidden">
+          <div class="text-center overflow-hidden">
             <img src="{{ section.settings.block_3 | image_url: width: 800 }}" class="img-fluid" style="object-fit: cover; width: 100%; height: 400px;">
           </div>
         {% else %}
@@ -82,15 +93,18 @@
     </div>
 
     <!-- Block 4 full width -->
-    <div>
-      {% if section.settings.block_4 %}
-        <div class="text-center border rounded overflow-hidden">
-          <img src="{{ section.settings.block_4 | image_url: width: 800 }}" class="img-fluid" style="object-fit: cover; width: 100%; height: 400px;">
-        </div>
-      {% else %}
-        <div class="bg-light text-center border rounded">No image selected</div>
-      {% endif %}
-    </div>
+      <div class="flex-grow-0 p-5" style="height: 40%;">
+        {% if section.settings.block_4_heading %}
+            <h5 style="font-size: large; color:grey; font-weight: 200;">{{ section.settings.block_4_heading }}</h5>
+        {% endif %}
+        {% if section.settings.block_4_button_text and section.settings.block_4_button_url %}
+            <a href="{{ section.settings.block_4_button_url }}" class="btn btn-primary mt-2"
+            style="color: black; text-underline-offset: 8px;"
+            >
+            {{ section.settings.block_4_button_text }}
+            </a>
+        {% endif %}
+      </div>
   </div>
 </section>
 
@@ -99,10 +113,50 @@
 {
   "name": "Fixed 4-Block Section",
   "settings": [
-    { "type": "image_picker", "id": "block_1", "label": "Block 1 Image" },
-    { "type": "image_picker", "id": "block_2", "label": "Block 2 Image" },
-    { "type": "image_picker", "id": "block_3", "label": "Block 3 Image" },
-    { "type": "image_picker", "id": "block_4", "label": "Block 4 Image" }
+    {
+    "type": "image_picker",
+    "id": "block_2",
+    "label": "Block 2 Image"
+    },
+    {
+    "type": "image_picker",
+    "id": "block_3",
+    "label": "Block 3 Image"
+    },
+    {
+    "type": "text",
+    "id": "block_1_heading",
+    "label": "Block 1 Heading",
+    "default": "Block 1 Title"
+    },
+    {
+    "type": "text",
+    "id": "block_1_button_text",
+    "label": "Block 1 Button Text",
+    "default": "Shop Now"
+    },
+    {
+    "type": "url",
+    "id": "block_1_button_url",
+    "label": "Block 1 Button URL"
+    },
+    {
+    "type": "text",
+    "id": "block_4_heading",
+    "label": "Block 4 Heading",
+    "default": "Block 4 Title"
+    },
+    {
+    "type": "text",
+    "id": "block_4_button_text",
+    "label": "Block 4 Button Text",
+    "default": "Shop Now"
+    },
+    {
+    "type": "url",
+    "id": "block_4_button_url",
+    "label": "Block 4 Button URL"
+    }
   ],
   "presets": [
     { "name": "Fixed 4-Block Section" }
