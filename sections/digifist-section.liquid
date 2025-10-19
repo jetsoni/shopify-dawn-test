@@ -1,31 +1,42 @@
 <section class="container py-5">
-  <div class="row g-3"><!-- g-3 adds gap between boxes -->
-    <div class="col-md-6">
-      <div class="p-5 text-white text-center" style="background-color: #007bff;">Box 1</div>
-    </div>
-    <div class="col-md-6">
-      <div class="p-5 text-white text-center" style="background-color: #28a745;">Box 2</div>
-    </div>
-    <div class="col-md-6">
-      <div class="p-5 text-white text-center" style="background-color: #ffc107;">Box 3</div>
-    </div>
-    <div class="col-md-6">
-      <div class="p-5 text-white text-center" style="background-color: #dc3545;">Box 4</div>
-    </div>
+  <div class="row g-3">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'image_block' %}
+          <div class="col-md-6">
+            <div class="position-relative rounded overflow-hidden" style="height: 250px;">
+              {% if block.settings.image %}
+                <img src="{{ block.settings.image | image_url: width: 800 }}" 
+                     alt="{{ block.settings.image.alt | escape }}" 
+                     class="w-100 h-100" style="object-fit: cover;">
+              {% else %}
+                <div class="bg-light w-100 h-100 d-flex align-items-center justify-content-center border">
+                  <span class="text-muted">No image selected</span>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+      {% endcase %}
+    {% endfor %}
   </div>
 </section>
-
 
 {% schema %}
 {
   "name": "Digifist",
   "class": "custom-section",
-  "settings": [
+  "settings": [],
+  "blocks": [
     {
-      "type": "text",
-      "id": "title",
-      "default": "Example heading",
-      "label": "Heading title"
+      "type": "image_block",
+      "name": "Image Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Upload image"
+        }
+      ]
     }
   ],
   "presets": [
