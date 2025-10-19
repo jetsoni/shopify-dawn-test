@@ -1,0 +1,37 @@
+<section class="container py-5">
+  <div class="row g-3"><!-- g-3 adds gap between boxes -->
+    <div class="col-md-6">
+      <div class="p-5 text-white text-center" style="background-color: #007bff;">Box 1</div>
+    </div>
+    <div class="col-md-6">
+      <div class="p-5 text-white text-center" style="background-color: #28a745;">Box 2</div>
+    </div>
+    <div class="col-md-6">
+      <div class="p-5 text-white text-center" style="background-color: #ffc107;">Box 3</div>
+    </div>
+    <div class="col-md-6">
+      <div class="p-5 text-white text-center" style="background-color: #dc3545;">Box 4</div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Digifist",
+  "class": "custom-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Example heading",
+      "label": "Heading title"
+    }
+  ],
+  "presets": [
+    {
+      "name": "My custom section"
+    }
+  ]
+}
+{% endschema %}
