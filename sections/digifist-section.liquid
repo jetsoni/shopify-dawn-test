@@ -29,7 +29,22 @@
 
     <!-- Right column (Block 2 + Block 4) -->
     <div class="col-md-6 d-flex flex-column">
-      <div class="flex-grow-0" style="height: 60%;">
+      <div class="position-relative flex-grow-0" style="height: 60%;">
+
+        {% if section.settings.featured_product %}
+          {% assign product = section.settings.featured_product %}
+          <!-- Floating product card -->
+          <a href="{{ product.url }}" class="position-absolute bottom-0 end-0 mb-5 me-5 bg-light px-3 py-2 d-flex align-items-center rounded shadow-sm text-decoration-none" style="z-index: 2;">
+            <div class="me-3 text-start">
+              <div class="fw-bold text-dark small">{{ product.title }}</div>
+              <div class="text-muted small">{{ product.price | money }}</div>
+            </div>
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | image_url: width: 100 }}" alt="{{ product.title | escape }}" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
+            {% endif %}
+          </a>
+        {% endif %}
+
         {% if section.settings.block_2 %}
           <div class="text-center border rounded overflow-hidden h-100">
             <img src="{{ section.settings.block_2 | image_url: width: 800 }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
@@ -73,6 +88,20 @@
     <!-- Horizontal scroll for blocks 2 & 3 -->
     <div class="d-flex overflow-auto flex-nowrap mb-3" style="gap: 1rem; scroll-snap-type: x mandatory;">
       <div class="flex-shrink-0" style="width: 90vw; scroll-snap-align: start;">
+        {% if section.settings.featured_product %}
+          {% assign product = section.settings.featured_product %}
+          <!-- Floating product card -->
+          <a href="{{ product.url }}" class="position-absolute bg-light px-3 py-2 d-flex align-items-center rounded shadow-sm text-decoration-none" style="z-index: 2; bottom: 8%; right: 6%;">
+            <div class="me-3 text-start">
+              <div class="fw-bold text-dark small">{{ product.title }}</div>
+              <div class="text-muted small">{{ product.price | money }}</div>
+            </div>
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | image_url: width: 100 }}" alt="{{ product.title | escape }}" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
+            {% endif %}
+          </a>
+        {% endif %}
+
         {% if section.settings.block_2 %}
           <div class="text-center overflow-hidden">
             <img src="{{ section.settings.block_2 | image_url: width: 800 }}" class="img-fluid" style="object-fit: cover; width: 100%; height: 400px;">
@@ -113,6 +142,11 @@
 {
   "name": "Fixed 4-Block Section",
   "settings": [
+    {
+    "type": "product",
+    "id": "featured_product",
+    "label": "Select product for floating card"
+    },
     {
     "type": "image_picker",
     "id": "block_2",
