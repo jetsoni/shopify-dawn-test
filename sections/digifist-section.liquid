@@ -5,13 +5,13 @@
     <div class="col-md-6 d-flex flex-column">
       <div class="flex-grow-0 p-5" style="height: 40%;">
         {% if section.settings.block_1_heading %}
-            <h3 style="font-size: x-large; font-weight:800;">{{ section.settings.block_1_heading }}</h3>
+            <h3 style="font-size: x-large; font-weight:800;">{{ section.settings.block_1_heading | default: "You can define this text content in the section settings" }}</h3>
         {% endif %}
-        {% if section.settings.block_1_button_text and section.settings.block_1_button_url %}
+        {% if section.settings.block_1_button_text or section.settings.block_1_button_url %}
             <a href="{{ section.settings.block_1_button_url }}" class="btn btn-primary mt-2"
             style="text-decoration: none; text-transform: uppercase; color: #fff; padding: 1rem; background-color:black;"
             >
-            {{ section.settings.block_1_button_text }}
+            {{ section.settings.block_1_button_text | default: "[Button text]" }}
             <span class="ms-2 fs-1">&#8250;</span> <!-- Right-facing chevron -->
             </a>
         {% endif %}
@@ -55,13 +55,13 @@
       </div>
       <div class="flex-grow-0" style="height: 40%; padding: 8rem;">
         {% if section.settings.block_4_heading %}
-            <h5 style="font-size: large; color:grey; font-weight: 200;">{{ section.settings.block_4_heading }}</h5>
+            <h5 style="font-size: large; color:grey; font-weight: 200;">{{ section.settings.block_4_heading | default: "You can define this text content in the section settings" }}</h5>
         {% endif %}
-        {% if section.settings.block_4_button_text and section.settings.block_4_button_url %}
+        {% if section.settings.block_4_button_text or section.settings.block_4_button_url %}
             <a href="{{ section.settings.block_4_button_url }}" class="btn btn-primary mt-2"
             style="color: black; text-underline-offset: 8px;"
             >
-            {{ section.settings.block_4_button_text }}
+            {{ section.settings.block_4_button_text | default: "[Link text]" }}
             </a>
         {% endif %}
       </div>
@@ -73,13 +73,13 @@
     <!-- Block 1 full width -->
       <div class="flex-grow-0 p-5" style="height: 40%;">
         {% if section.settings.block_1_heading %}
-            <h3 style="font-size: x-large; font-weight:800;">{{ section.settings.block_1_heading }}</h3>
+            <h3 style="font-size: x-large; font-weight:800;">{{ section.settings.block_1_heading | default: "You can define this text content in the section settings" }}</h3>
         {% endif %}
-        {% if section.settings.block_1_button_text and section.settings.block_1_button_url %}
+        {% if section.settings.block_1_button_text or section.settings.block_1_button_url %}
             <a href="{{ section.settings.block_1_button_url }}" class="btn btn-primary mt-2"
             style="text-decoration: none; text-transform: uppercase; color: #fff; padding: 1rem; background-color:black;"
             >
-            {{ section.settings.block_1_button_text }}
+            {{ section.settings.block_1_button_text | default: "[Button text]" }}
             <span class="ms-2 fs-1">&#8250;</span> <!-- Right-facing chevron -->
             </a>
         {% endif %}
@@ -100,6 +100,8 @@
               <img src="{{ product.featured_image | image_url: width: 100 }}" alt="{{ product.title | escape }}" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
             {% endif %}
           </a>
+        {%  else  %}
+          <p>example</p>
         {% endif %}
 
         {% if section.settings.block_2 %}
@@ -124,13 +126,13 @@
     <!-- Block 4 full width -->
       <div class="flex-grow-0 p-5" style="height: 40%;">
         {% if section.settings.block_4_heading %}
-            <h5 style="font-size: large; color:grey; font-weight: 200;">{{ section.settings.block_4_heading }}</h5>
+            <h5 style="font-size: large; color:grey; font-weight: 200;">{{ section.settings.block_4_heading | default: "You can define this text content in the section settings" }}</h5>
         {% endif %}
-        {% if section.settings.block_4_button_text and section.settings.block_4_button_url %}
+        {% if section.settings.block_4_button_text or section.settings.block_4_button_url %}
             <a href="{{ section.settings.block_4_button_url }}" class="btn btn-primary mt-2"
             style="color: black; text-underline-offset: 8px;"
             >
-            {{ section.settings.block_4_button_text }}
+            {{ section.settings.block_4_button_text | default: "[Link text]" }}
             </a>
         {% endif %}
       </div>
@@ -140,56 +142,65 @@
 
 {% schema %}
 {
-  "name": "Fixed 4-Block Section",
+  "name": "Digifist section",
   "settings": [
     {
-    "type": "product",
-    "id": "featured_product",
-    "label": "Select product for floating card"
+      "type": "header",
+      "content": "Left column (desktop layout)"
     },
     {
-    "type": "image_picker",
-    "id": "block_2",
-    "label": "Block 2 Image"
+      "type": "text",
+      "id": "block_1_heading",
+      "label": "Text content",
+      "placeholder": "Add text content"
     },
     {
-    "type": "image_picker",
-    "id": "block_3",
-    "label": "Block 3 Image"
+      "type": "text",
+      "id": "block_1_button_text",
+      "label": "Button text",
+      "default": "Button text"
     },
     {
-    "type": "text",
-    "id": "block_1_heading",
-    "label": "Block 1 Heading",
-    "default": "Block 1 Title"
+      "type": "url",
+      "id": "block_1_button_url",
+      "label": "Button URL"
     },
     {
-    "type": "text",
-    "id": "block_1_button_text",
-    "label": "Block 1 Button Text",
-    "default": "Shop Now"
+      "type": "image_picker",
+      "id": "block_3",
+      "label": "Image (bottom left)"
+    },
+
+    {
+      "type": "header",
+      "content": "Right column (desktop layout)"
     },
     {
-    "type": "url",
-    "id": "block_1_button_url",
-    "label": "Block 1 Button URL"
+      "type": "image_picker",
+      "id": "block_2",
+      "label": "Image (top right)"
     },
     {
-    "type": "text",
-    "id": "block_4_heading",
-    "label": "Block 4 Heading",
-    "default": "Block 4 Title"
+      "type": "product",
+      "id": "featured_product",
+      "label": "Select product for a floating product card"
     },
     {
-    "type": "text",
-    "id": "block_4_button_text",
-    "label": "Block 4 Button Text",
-    "default": "Shop Now"
+      "type": "text",
+      "id": "block_4_heading",
+      "label": "Text content",
+      "default": "Add text content"
     },
     {
-    "type": "url",
-    "id": "block_4_button_url",
-    "label": "Block 4 Button URL"
+      "type": "text",
+      "id": "block_4_button_text",
+      "label": "Link Text",
+      "default": "Link text"
+    },
+    {
+      "type": "url",
+      "id": "block_4_button_url",
+      "label": "Link URL"
     }
   ],
   "presets": [
