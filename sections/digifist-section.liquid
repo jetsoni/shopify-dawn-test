@@ -156,18 +156,18 @@
     {%- endcomment -%}
     <div class="d-flex overflow-auto flex-nowrap ms-5" style="gap: 1rem; scroll-snap-type: x mandatory;">
 
-      <div class="flex-shrink-0" style="width: 90vw; scroll-snap-align: start;">
+      <div class="flex-shrink-0 position-relative" style="width: 90vw; scroll-snap-align: start;">
         {% if section.settings.featured_product %}
           {% assign product = section.settings.featured_product %}
-          <a href="{{ product.url }}" class="position-absolute bg-light px-2 py-2 d-flex align-items-center shadow-sm text-decoration-none" style="z-index: 2; bottom: 0%; right: 6%; transform: translateY(80px);"
-             aria-label="Featured product: {{ product.title }}">
+          <a href="{{ product.url }}" class="position-absolute bg-light px-2 py-2 d-flex align-items-center shadow-sm text-decoration-none" 
+            style="z-index: 2; bottom: 2rem; right: 2rem;" aria-label="Featured product: {{ product.title }}">
             {% if product.featured_image %}
               <img src="{{ product.featured_image | image_url: width: 100 }}" alt="{{ product.title | escape }}" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
             {% endif %}
           </a>
         {% elsif request.design_mode %}
           <div role="status" class="position-absolute bottom-0 end-0 mb-5 me-5 px-3 py-2 d-flex align-items-center justify-content-center shadow-sm"
-               style="z-index: 2; border: 1px dashed #ccc; border-radius: 6px; min-width: 200px; min-height: 60px; color:#000; font-size: 0.875rem; background: rgba(255,255,255,0.5);">
+              style="z-index: 2; border: 1px dashed #ccc; border-radius: 6px; min-width: 200px; min-height: 60px; color:#000; font-size: 0.875rem; background: rgba(255,255,255,0.5);">
             <span>Select product for this card in the section settings</span>
           </div>
         {% endif %}
@@ -175,7 +175,7 @@
         {% if section.settings.block_2 %}
           <div class="text-center overflow-hidden">
             <img src="{{ section.settings.block_2 | image_url: width: 800 }}" class="img-fluid" style="object-fit: cover; width: 100%; height: 400px;"
-                 alt="{{ section.settings.block_2_alt_text | default: 'Decorative image for block 2' }}" loading="lazy">
+                alt="{{ section.settings.block_2_alt_text | default: 'Decorative image for block 2' }}" loading="lazy">
           </div>
         {% else %}
           <div class="bg-light text-center border rounded">No image selected</div>
@@ -186,7 +186,7 @@
         {% if section.settings.block_3 %}
           <div class="text-center overflow-hidden">
             <img src="{{ section.settings.block_3 | image_url: width: 800 }}" class="img-fluid" style="object-fit: cover; width: 100%; height: 400px;"
-                 alt="{{ section.settings.block_3_alt_text | default: 'Decorative image for block 3' }}" loading="lazy">
+                alt="{{ section.settings.block_3_alt_text | default: 'Decorative image for block 3' }}" loading="lazy">
           </div>
         {% else %}
           <div class="bg-light text-center border rounded">No image selected</div>
