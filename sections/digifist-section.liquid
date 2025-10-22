@@ -5,15 +5,15 @@
     <div class="col-md-6 d-flex flex-column">
       <div class="flex-grow-0 p-5" style="height: 40%;">
         {% if section.settings.block_1_heading %}
-            <h3 style="font-size: x-large; font-weight:800;">{{ section.settings.block_1_heading | default: "You can define this text content in the section settings" }}</h3>
+          <h3 style="font-size: x-large; font-weight:800;">{{ section.settings.block_1_heading | default: "You can define this text content in the section settings" }}</h3>
         {% endif %}
         {% if section.settings.block_1_button_text or section.settings.block_1_button_url %}
-            <a href="{{ section.settings.block_1_button_url }}" class="btn btn-primary mt-2"
+          <a href="{{ section.settings.block_1_button_url }}" class="btn btn-primary mt-2"
             style="text-decoration: none; text-transform: uppercase; color: #fff; padding: 1rem; background-color:black;"
             >
             {{ section.settings.block_1_button_text | default: "[Button text]" }}
-            <span class="ms-2 fs-1">&#8250;</span> <!-- Right-facing chevron -->
-            </a>
+            <span class="ms-2 fs-1">&#8250;</span>
+          </a>
         {% endif %}
       </div>
       <div class="flex-grow-0 mt-3" style="height: 60%;">
@@ -31,9 +31,12 @@
     <div class="col-md-6 d-flex flex-column">
       <div class="position-relative flex-grow-0" style="height: 60%;">
 
-        {% if section.settings.featured_product %}
-          {% assign product = section.settings.featured_product %}
+        {% assign product = nil %}
+        {% if section.settings.featured_product != blank %}
+          {% assign product = all_products[section.settings.featured_product] %}
+        {% endif %}
           <!-- Floating product card -->
+        {% if product %}
           <a href="{{ product.url }}" class="position-absolute bottom-0 end-0 mb-5 me-5 bg-light px-3 py-2 d-flex align-items-center shadow-sm text-decoration-none" style="z-index: 2;">
             <div class="me-3 text-start">
               <div class="fw-bold text-dark small">{{ product.title }}</div>
@@ -43,6 +46,11 @@
               <img src="{{ product.featured_image | image_url: width: 100 }}" alt="{{ product.title | escape }}" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
             {% endif %}
           </a>
+        {% elsif request.design_mode %}
+          <div class="position-absolute bottom-0 end-0 mb-5 me-5 px-3 py-2 d-flex align-items-center justify-content-center shadow-sm"
+              style="z-index: 2; border: 1px dashed #ccc; border-radius: 6px; min-width: 200px; min-height: 60px; color:#000; font-size: 0.875rem; background: rgba(255,255,255,0.5);">
+            <span>Select product for this card in the section settings</span>
+          </div>
         {% endif %}
 
         {% if section.settings.block_2 %}
@@ -55,14 +63,14 @@
       </div>
       <div class="flex-grow-0" style="height: 40%; padding: 8rem;">
         {% if section.settings.block_4_heading %}
-            <h5 style="font-size: large; color:grey; font-weight: 200;">{{ section.settings.block_4_heading | default: "You can define this text content in the section settings" }}</h5>
+          <h5 style="font-size: large; color:grey; font-weight: 200;">{{ section.settings.block_4_heading | default: "You can define this text content in the section settings" }}</h5>
         {% endif %}
         {% if section.settings.block_4_button_text or section.settings.block_4_button_url %}
-            <a href="{{ section.settings.block_4_button_url }}" class="btn btn-primary mt-2"
+          <a href="{{ section.settings.block_4_button_url }}" class="btn btn-primary mt-2"
             style="color: black; text-underline-offset: 8px;"
             >
             {{ section.settings.block_4_button_text | default: "[Link text]" }}
-            </a>
+          </a>
         {% endif %}
       </div>
     </div>
@@ -76,12 +84,12 @@
             <h3 style="font-size: x-large; font-weight:800;">{{ section.settings.block_1_heading | default: "You can define this text content in the section settings" }}</h3>
         {% endif %}
         {% if section.settings.block_1_button_text or section.settings.block_1_button_url %}
-            <a href="{{ section.settings.block_1_button_url }}" class="btn btn-primary mt-2"
+          <a href="{{ section.settings.block_1_button_url }}" class="btn btn-primary mt-2"
             style="text-decoration: none; text-transform: uppercase; color: #fff; padding: 1rem; background-color:black;"
             >
             {{ section.settings.block_1_button_text | default: "[Button text]" }}
-            <span class="ms-2 fs-1">&#8250;</span> <!-- Right-facing chevron -->
-            </a>
+            <span class="ms-2 fs-1">&#8250;</span>
+          </a>
         {% endif %}
       </div>
 
@@ -91,17 +99,16 @@
         {% if section.settings.featured_product %}
           {% assign product = section.settings.featured_product %}
           <!-- Floating product card -->
-          <a href="{{ product.url }}" class="position-absolute bg-light px-2 py-2 d-flex align-items-center shadow-sm text-decoration-none" style="z-index: 2; bottom: 8%; right: 6%;">
-            {% comment %} <div class="me-3 text-start">
-              <div class="fw-bold text-dark small">{{ product.title }}</div>
-              <div class="text-muted small">{{ product.price | money }}</div>
-            </div> {% endcomment %}
+          <a href="{{ product.url }}" class="position-absolute bg-light px-2 py-2 d-flex align-items-center shadow-sm text-decoration-none" style="z-index: 2; bottom: 0%; right: 6%; transform: translateY(80px);">
             {% if product.featured_image %}
               <img src="{{ product.featured_image | image_url: width: 100 }}" alt="{{ product.title | escape }}" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
             {% endif %}
           </a>
-        {%  else  %}
-          <p>example</p>
+        {% elsif request.design_mode %}
+          <div class="position-absolute bottom-0 end-0 mb-5 me-5 px-3 py-2 d-flex align-items-center justify-content-center shadow-sm"
+              style="z-index: 2; border: 1px dashed #ccc; border-radius: 6px; min-width: 200px; min-height: 60px; color:#000; font-size: 0.875rem; background: rgba(255,255,255,0.5);">
+            <span>Select product for this card in the section settings</span>
+          </div>
         {% endif %}
 
         {% if section.settings.block_2 %}
@@ -204,7 +211,7 @@
     }
   ],
   "presets": [
-    { "name": "Fixed 4-Block Section" }
+    { "name": "Digifist section" }
   ]
 }
 {% endschema %}
